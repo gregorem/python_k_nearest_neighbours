@@ -4,7 +4,6 @@
 
 import numpy as np
 from math import sqrt
-from collections import Counter
 
 
 # function to get unique values
@@ -15,6 +14,9 @@ def unique(list1):
 def load_data_from_file(file):
     data = open(file, "r").read()
     data = data.split('\n')
+    return data
+
+def convert_to_float(data):
     data_tmp = []
     for line in data:
         data_tmp.append(line.split(","))
@@ -25,6 +27,12 @@ def load_data_from_file(file):
         data.append(list_tmp)
     return data
 
+# Append only last column
+def only_last_column_append(data):
+    tmp = []
+    for line in data:
+        tmp.append(line[-1])
+    return tmp
 
 # Calculate the Euclidean distance between two vectors
 def euclidean_distance(row1, row2):
@@ -45,24 +53,24 @@ def get_neighbors(train, test_row, num_neighbors):
         neighbors.append(distances[i][0])
     return neighbors
 
-# Configurations
+#-------------------Configurations-------------------
 
-K = 5
-NUM_COL_DATA = 3
+#K neares neighbours
+K= input("Value K: ")
+K = int(K, 10)
 
-new_object = [4.7,3.2,1.3,.2]
+# New data
+new_object = [3.2,1.3,.2]
+
+#-------------------End configurations-------------------
+
 
 # Load data from file and convert numbers to float
-
 data = load_data_from_file("file1.txt")
+data = convert_to_float(data)
 
-#print(data)
-
-# Show classes decision
-classes = []
-for line in data:
-    classes.append(line[-1])
-
+# Show decision class
+classes = only_last_column_append(data)
 print("\nClasses object in file:")
 classes = unique(classes)
 print(classes)
@@ -72,20 +80,21 @@ data_only_vector = []
 for line in data:
     data_only_vector.append(line[:-1])
 
+# Find nearest neighbors
 nearest_objects = get_neighbors(data_only_vector, new_object, K)
 
-#show objects
-print("\nShow object for only vector:")
+# Show objects - find neares neighbors (portion information)
+print("\nObject found(only vector):")
 for line in nearest_objects:
     print(line)
 
-#find full object
+# Find full object
 near_full_obj = []
 for line in nearest_objects:
     index = data_only_vector.index(line)
     near_full_obj.append(data[index])
 
-#show objects
+# Show full objects
 print("\nShow ful information object:")
 for line in near_full_obj:
     print(line)
@@ -94,7 +103,8 @@ only_classes = []
 for line in near_full_obj:
     only_classes.append(line[-1])
 
+print("\nNew object:", new_object)
+print("Class new object: ", max(only_classes, key=only_classes.count))
 
-print(Counter(only_classes).keys() )# equals to list(set(words))
-print(Counter(only_classes).values()) # counts the elements' frequency
+
 
