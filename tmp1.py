@@ -1,6 +1,5 @@
-
 # Program with python
-#Authors: Bartosz Pacia, Jakub Szafraniak, Grzegorz Musiał
+# Authors: Bartosz Pacia, Jakub Szafraniak, Grzegorz Musiał
 
 import numpy as np
 from math import sqrt
@@ -11,10 +10,12 @@ def unique(list1):
     x = np.array(list1)
     return np.unique(x)
 
+
 def load_data_from_file(file):
     data = open(file, "r").read()
     data = data.split('\n')
     return data
+
 
 def convert_to_float(data):
     data_tmp = []
@@ -27,12 +28,14 @@ def convert_to_float(data):
         data.append(list_tmp)
     return data
 
+
 # Append only last column
 def only_last_column_append(data):
     tmp = []
     for line in data:
         tmp.append(line[-1])
     return tmp
+
 
 # Calculate the Euclidean distance between two vectors
 def euclidean_distance(row1, row2):
@@ -53,16 +56,17 @@ def get_neighbors(train, test_row, num_neighbors):
         neighbors.append(distances[i][0])
     return neighbors
 
-#-------------------Configurations-------------------
 
-#K neares neighbours
-K= input("Value K: ")
+# -------------------Configurations-------------------
+
+# K neares neighbours
+K = input("Value K: ")
 K = int(K, 10)
 
 # New data
 new_object = [1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 0, 1, 1, 0, 0]
 
-#-------------------End configurations-------------------
+# -------------------End configurations-------------------
 
 
 # Load data from file and convert numbers to float
@@ -103,11 +107,5 @@ only_classes = []
 for line in near_full_obj:
     only_classes.append(line[-1])
 
-class_file = open("class.txt", "r").read()
-class_file = class_file.split('\n')
-
 print("\nNew object:", new_object)
 print("Class new object: ", max(only_classes, key=only_classes.count))
-
-
-
