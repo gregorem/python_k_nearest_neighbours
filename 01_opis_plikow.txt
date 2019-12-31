@@ -1,0 +1,4 @@
+1. k_NN - docelowy program, przyporz¹dkowuje, przyk³ad znajduj¹dcu siê w kodzie, do numeru klasy 
+2. zoo - dane ucz¹ce, posiada ponad 100 przyk³adów, na podstawie których, g³ówny algorytm decyduje
+o przyporz¹dkowaniu przyk³adu do numeru klasy
+3. class - opis numerów klasy
